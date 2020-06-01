@@ -1,4 +1,4 @@
-package b1u3.questionize;
+package b1u3.app.questionize;
 
 
 import java.util.Random;

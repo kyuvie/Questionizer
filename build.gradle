@@ -19,8 +19,8 @@ repositories {
 
 dependencies {
 	// implementation group: 'org.openjfx', name: 'javafx', version: '15-ea+4', ext: 'pom'
-    testImplementation 'junit:junit:4.13'
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
+    implementation('org.slf4j:slf4j-jdk14:1.7.30')
 }
 
 javafx {
@@ -68,5 +68,9 @@ tasks.withType(JavaCompile) {
 }
 
 test {
+    testLogging {
+        showStandardStreams = true
+        events 'standard_out', 'standard_error'
+    }
     useJUnitPlatform()
 }

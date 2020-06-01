@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="b1u3.app.questionize.QuestionTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-06-01T11:49:30" hostname="HAPPYMAKER" time="0.007">
+  <properties/>
+  <testcase name="shuffleChoices()" classname="b1u3.app.questionize.QuestionTest" time="0.004"/>
+  <testcase name="greaterThanSize()" classname="b1u3.app.questionize.QuestionTest" time="0.0"/>
+  <testcase name="shuffleChoicesAndCheck()" classname="b1u3.app.questionize.QuestionTest" time="0.001"/>
+  <testcase name="choiseIsLessThanSize()" classname="b1u3.app.questionize.QuestionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

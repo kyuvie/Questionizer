@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="b1u3.app.questionize.QuestionizerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-01T11:49:30" hostname="HAPPYMAKER" time="0.02">
+  <properties/>
+  <testcase name="testReadAllLinesFromPath()" classname="b1u3.app.questionize.QuestionizerTest" time="0.02"/>
+  <system-out><![CDATA[This is System.out.println
+]]></system-out>
+  <system-err><![CDATA[6月 01, 2020 8:49:30 午後 b1u3.app.questionize.QuestionizerTest testReadAllLinesFromPath
+情報: This is logger sample
+]]></system-err>
+</testsuite>
