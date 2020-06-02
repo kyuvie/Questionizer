@@ -14,7 +14,8 @@ public class Question {
     private String statement;
     private Random rand = new Random();
 
-    public Question(String key, HashMap<String, String> column, int choice) {
+    public Question(String key, HashMap<String, String> column, int choice) throws IllegalArgumentException {
+        this.setStatement(key);
         if (choice <= 0 || !column.containsKey(key)) {
             throw new IllegalArgumentException("choice is Positive Integer, got=" + choice + "\n");
         } else if (choice >= column.size()) {
@@ -50,5 +51,13 @@ public class Question {
             this.choices = new ArrayList<>();
         }
         return this.choices;
+    }
+
+    protected void setStatement(String key) {
+        this.statement = key;
+    }
+
+    public String getStatement() {
+        return this.statement;
     }
 }
