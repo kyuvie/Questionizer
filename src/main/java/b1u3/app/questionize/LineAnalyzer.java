@@ -16,10 +16,26 @@ public class LineAnalyzer {
     }
 
     // 文全体の解析のメソッド
+    /*
+     * 最初の行の列に合わせる
+     */
+
     public ArrayList<ArrayList<String>> analyzeAll(String all, String spliter) {
         ArrayList<ArrayList<String>> ret = new ArrayList<>();
+        int i = 0;
+        int initial_line_num = 0;
         for (String line: all.split("\n")) {
-            ret.add(this.analyzeLine(line.strip(), spliter));
+            if (i == 0) {
+                ArrayList<String> init_line = this.analyzeLine(line.strip(), spliter);
+                initial_line_num = init_line.size();
+                ret.add(init_line);
+            } else {
+                ArrayList<String> splited_line = this.analyzeLine(line.strip(), spliter);
+                if (splited_line.size() == initial_line_num) {
+                    ret.add(splited_line);
+                }
+            }
+            i++;
         }
         return ret;
     }
