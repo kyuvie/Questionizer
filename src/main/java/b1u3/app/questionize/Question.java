@@ -5,12 +5,12 @@ import java.util.Random;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
 
 public class Question {
-    private List<String> choices;
+    private ArrayList<String> choices;
     private String statement;
     private Random rand = new Random();
 
@@ -46,7 +46,7 @@ public class Question {
         Collections.shuffle(this.choices);
     }
 
-    public List<String> getChoices() {
+    public ArrayList<String> getChoices() {
         if (this.choices == null) {
             this.choices = new ArrayList<>();
         }

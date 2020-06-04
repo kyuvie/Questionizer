@@ -15,10 +15,11 @@ public class Questionizer implements Iterable<Question> {
     private Path src_path;
     private LineAnalyzer an;
     public static final String sep = "-";
+    public HashMap<String, String> hm = null;
 
     public Questionizer(Path path) throws IOException {
         if (!path.isAbsolute()) {
-            this.src_path = src_path.toAbsolutePath();
+            this.src_path = path.toAbsolutePath();
         } else {
             this.src_path = path;
         }
@@ -26,7 +27,7 @@ public class Questionizer implements Iterable<Question> {
         this.questions = new ArrayList<Question>();
         String file_content = Files.lines(this.src_path, UTF_8).collect(Collectors.joining(System.getProperty("line.separator")));
         ArrayList<ArrayList<String>> all = this.an.analyzeAll(file_content, sep);
-        HashMap<String, String> hm = new HashMap<>();
+        hm = new HashMap<>();
         for (ArrayList<String> al: all) {
             hm.put(al.get(0), al.get(1));
         }
@@ -40,6 +41,10 @@ public class Questionizer implements Iterable<Question> {
     @Override
     public Iterator<Question> iterator () {
         return new QuestionIterator(this);
+    }
+
+    public boolean ans(Question q, int ans) {
+        return this.hm.get(q.getStatement()) == q.getChoices().get(ans);
     }
 
 }
