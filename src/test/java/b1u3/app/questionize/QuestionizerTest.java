@@ -24,7 +24,7 @@ public class QuestionizerTest {
         Path path = Paths.get("sample.txt");
         // logger.info(path.toAbsolutePath().toString());
         try {
-            Questionizer qn = new Questionizer(path);
+            Questionizer qn = new SimpleQuestionizer(path);
             Iterator<Question> qit = qn.iterator();
             assertEquals(qn.questions.size(), 3);
             int i = 1;
@@ -34,7 +34,7 @@ public class QuestionizerTest {
                 i++;
             }
         } catch (IOException e) {
-            fail("Questionizer constructor has occured IOException");
+            fail("Simple Questionizer constructor has occured IOException");
         }
     }
 
@@ -42,7 +42,7 @@ public class QuestionizerTest {
     public void testWrongAns() {
         Path path = Paths.get("sample.txt");
         try {
-            Questionizer qn = new Questionizer(path);
+            Questionizer qn = new SimpleQuestionizer(path);
             Iterator<Question> qit = qn.iterator();
             if (!qit.hasNext()) {
                 fail("no questions, maybe input text file is wrong");
@@ -61,7 +61,7 @@ public class QuestionizerTest {
             }
             assertTrue(!qn.ans(q, userInput));
         } catch (IOException e) {
-            fail("Questionizer constructor has occured IOException");
+            fail("SimpleQuestionizer constructor has occured IOException");
         }
     }
 
@@ -69,7 +69,7 @@ public class QuestionizerTest {
     public void testRightAns() {
         Path path = Paths.get("sample.txt");
         try {
-            Questionizer qn = new Questionizer(path);
+            Questionizer qn = new SimpleQuestionizer(path);
             Iterator<Question> qit = qn.iterator();
             if (!qit.hasNext()) {
                 fail("no questions, maybe input text file is wrong");
@@ -89,7 +89,7 @@ public class QuestionizerTest {
             }
             assertTrue(qn.ans(q, userInput));
         } catch (IOException e) {
-            fail("Questionizer constructor has occured IOException");
+            fail("SimpleQuestionizer constructor has occured IOException");
         }
     }
 }

@@ -27,7 +27,7 @@ public class Main {
         }
         Questionizer qn = null;
         try {
-            qn = new Questionizer(Paths.get(ns.<String> getList("file").get(0)));
+            qn = new SimpleQuestionizer(Paths.get(ns.<String> getList("file").get(0)));
         } catch (Exception e) {
             ap.printHelp();
             System.exit(0);
