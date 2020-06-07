@@ -13,7 +13,7 @@ public class Questionizer implements Iterable<Question> {
     public ArrayList<Question> questions;
     // src_path is absolute path
     private Path src_path;
-    private LineAnalyzer an;
+    private Analyzer an;
     public static final String sep = "-";
     public HashMap<String, String> hm = null;
 
@@ -23,7 +23,7 @@ public class Questionizer implements Iterable<Question> {
         } else {
             this.src_path = path;
         }
-        this.an = LineAnalyzer.getLineAnalyzer();
+        this.an = Analyzer.getInstance("b1u3.app.questionize.SimpleAnalyzer");
         this.questions = new ArrayList<Question>();
         String file_content = Files.lines(this.src_path, UTF_8).collect(Collectors.joining(System.getProperty("line.separator")));
         ArrayList<ArrayList<String>> all = this.an.analyzeAll(file_content, sep);

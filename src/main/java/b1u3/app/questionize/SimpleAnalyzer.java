@@ -2,11 +2,9 @@ package b1u3.app.questionize;
 
 import java.util.ArrayList;
 
-public class LineAnalyzer {
-    static private LineAnalyzer an = null;
-    private LineAnalyzer() {
-    }
+public class SimpleAnalyzer extends Analyzer{
 
+    @Override
     public ArrayList<String> analyzeLine(String line, String spliter) {
         ArrayList<String> ret = new ArrayList<>();
         for (String e: line.split(spliter)) {
@@ -20,6 +18,7 @@ public class LineAnalyzer {
      * 最初の行の列に合わせる
      */
 
+    @Override
     public ArrayList<ArrayList<String>> analyzeAll(String all, String spliter) {
         ArrayList<ArrayList<String>> ret = new ArrayList<>();
         int i = 0;
@@ -38,12 +37,5 @@ public class LineAnalyzer {
             i++;
         }
         return ret;
-    }
-
-    static public LineAnalyzer getLineAnalyzer() {
-        if (an == null) {
-            an = new LineAnalyzer();
-        }
-        return an;
     }
 }
