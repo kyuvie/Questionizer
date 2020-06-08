@@ -4,6 +4,7 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.impl.Arguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.Paths;
@@ -18,9 +19,14 @@ public class Main {
     public static void main(String[] args) {
         ArgumentParser ap = ArgumentParsers.newFor("B1u3 Questionizer").build().defaultHelp(true).description("give you questions which have three choices");
         ap.addArgument("-f", "--file").nargs(1).help("Questions and answers table file splited by \"-\"");
+        ap.addArgument("-g", "--gui").action(Arguments.storeTrue()).help("Launch a GUI application.");
         Namespace ns = null;
         try {
             ns = ap.parseArgs(args);
+            if (ns.getBoolean("gui")) {
+                GuiMain.tmpMain(args);
+                System.exit(0);
+            }
         } catch (ArgumentParserException e) {
             ap.handleError(e);
             System.exit(0);
