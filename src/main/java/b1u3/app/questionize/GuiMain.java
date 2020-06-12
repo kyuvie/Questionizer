@@ -16,7 +16,7 @@ public class GuiMain extends Application {
         primaryStage.setTitle("B1u3 Questionizer");
         try {
             // FXMLのレイアウトをロード
-            Parent root = FXMLLoader.load(getClass().getResource("/Main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/layout/initial.fxml"));
 
             // タイトルセット
             primaryStage.setTitle("JavaFXSample");
