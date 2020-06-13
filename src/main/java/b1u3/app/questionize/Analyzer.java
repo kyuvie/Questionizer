@@ -1,9 +1,9 @@
 package b1u3.app.questionize;
 
 
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Analyzer {
     private static HashMap<String, Analyzer> _clsnameToInstance = new HashMap();
