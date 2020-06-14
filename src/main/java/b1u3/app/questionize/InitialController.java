@@ -4,6 +4,8 @@ package b1u3.app.questionize;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,10 +22,12 @@ import javafx.stage.Stage;
 
 public class InitialController implements Initializable {
     public ObservableList<String> availableFilePathes;
+    public HashMap<String, Path> filenameToPath;
 
 
     public InitialController() {
         this.availableFilePathes = FXCollections.observableArrayList();
+        this.filenameToPath = new HashMap<>();
     }
 
     @FXML
@@ -31,6 +35,14 @@ public class InitialController implements Initializable {
 
     @FXML
     protected void pushOkButton(ActionEvent e) {
+        State s = State.getInstance();
+        try {
+            s.qn = new SimpleQuestionizer(getSelectedAbsolutePath());
+        } catch (IOException ex) {
+            this.updateFileList();
+            return;
+        }
+
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/layout/question.fxml"));
@@ -44,11 +56,24 @@ public class InitialController implements Initializable {
 
     @FXML
     protected void pushQuitButton(ActionEvent e) {
-        System.out.println(this.availableFiles.<String> getFocusModel().getFocusedItem());
+        System.exit(0);
     }
 
     public void initialize(URL location, ResourceBundle resources) {
         // initialize 
+        this.updateFileList();
+
+    }
+
+    private Path getSelectedAbsolutePath() {
+        Path p = this.filenameToPath.get(this.availableFiles.<String> getFocusModel().getFocusedItem());
+        if (p == null) {
+            // TODO: warning
+        }
+        return p;
+    }
+
+    private void updateFileList() {
         URL homeDirUrl = this.getClass().getResource("/text");
         // homeDir does not exist
         if (homeDirUrl == null) {
@@ -59,6 +84,7 @@ public class InitialController implements Initializable {
             File[] homeDirFiles = homeDir.listFiles();
             for (File f: homeDirFiles) {
                 this.availableFilePathes.addAll(f.getAbsolutePath());
+                this.filenameToPath.put(f.getAbsolutePath(), f.toPath());
             }
             this.availableFiles.setItems(this.availableFilePathes);
         } catch (SecurityException e) {
@@ -66,6 +92,5 @@ public class InitialController implements Initializable {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-
     }
 }

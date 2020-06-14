@@ -18,7 +18,7 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 
-public class QuestionController implements Initializable {
+public final class QuestionController implements Initializable {
     // 適当
     final static int num = 3;
 
@@ -50,3 +50,4 @@ public class QuestionController implements Initializable {
         }
     }
 }
+
