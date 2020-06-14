@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
 
+
 public class Question {
     private ArrayList<String> choices;
     private String statement;
@@ -25,17 +26,19 @@ public class Question {
             }
         } else {
             ArrayList<String> al = new ArrayList<>();
-            Iterator it = column.values().iterator();
+            // copy value from column
+            Iterator<String> it = column.keySet().<String> iterator();
             while (it.hasNext()) {
-                al.add((String)it.next());
+                al.add(it.next());
             }
             Collections.shuffle(al);
-            this.getChoices().add((String)column.get(key));
+            // add the value of key
+            this.getChoices().add(column.get(key));
             int i = 0;
             while (this.getChoices().size() < choice) {
-                String g = (String)al.get(i);
+                String g = al.get(i);
                 if (g != key) {
-                    this.getChoices().add(g);
+                    this.getChoices().add(column.get(g));
                 }
                 i++;
             }
