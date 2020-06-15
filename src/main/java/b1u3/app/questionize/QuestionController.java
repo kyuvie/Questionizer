@@ -3,6 +3,8 @@ package b1u3.app.questionize;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,26 +19,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import java.util.HashMap;
-import java.util.Iterator;
-
-
-// TODO: Stateに保存しておく
 
 
 public final class QuestionController implements Initializable {
     // 適当
     final static int num = 3;
-    private HashMap<Button, Integer> choiceToNum;
+    private HashMap<Button, Integer> buttonToNum;
     private Question q;
     private Iterator<Question> it;
-    private int countOfQuestions;
-    private int correct;
+    // state というより record
+    private State state;
 
     public QuestionController() {
-        this.choiceToNum = new HashMap<>();
-        this.countOfQuestions = 0;
-        this.correct = 0;
+        this.buttonToNum = new HashMap<>();
+        this.state = State.getInstance();
+
     }
 
     @FXML
@@ -58,19 +55,17 @@ public final class QuestionController implements Initializable {
         this.changeChoices();
     }
 
-    /* ボタンの押しわけは HashMap<String, String> */
-
     public void buttonClicked(MouseEvent e) {
         // check answer
         Button btn = (Button) e.getSource();
         int ans = buttonToNum.get(btn);
-        this.countOfQuestions++;
+        this.state.all++;
         if (State.getInstance().qn.ans(this.q, ans)) {
             // correct
-            this.correct++;
-
+            this.state.correct++;
         } else {
-            // wrong
+            this.state.results.add(this.state.all + ". " + this.q.getStatement() + " : wrong");
+        }
         if (this.it.hasNext()) {
             this.q = this.it.next();
             this.choiceContainer.getChildren().clear();

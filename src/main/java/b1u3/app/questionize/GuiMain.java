@@ -19,7 +19,7 @@ public class GuiMain extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/layout/initial.fxml"));
 
             // タイトルセット
-            primaryStage.setTitle("JavaFXSample");
+            primaryStage.setTitle("B1u3 Questionizer");
 
             // シーン生成
             Scene scene = new Scene(root);
