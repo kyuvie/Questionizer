@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,7 +48,17 @@ public final class QuestionController implements Initializable {
             this.q = it.next();
             this.q.shuffle();
         } else {
-            // TODO: エラーウィンドウの表示からの initial.fxml に飛ぶ
+            // TODO: error handling
+            Stage stage = (Stage)this.statement.getScene().getWindow();
+            try {
+                State.getInstance().reset();
+                Parent root = FXMLLoader.load(getClass().getResource("/layout/initial.fxml"));
+                stage.setScene(new Scene(root));
+            } catch (IOException ex) {
+                // TODO: Error handling
+                System.err.print(ex.getMessage());
+                System.exit(0);
+            }
             System.exit(1);
         }
         this.changeChoices();
@@ -77,6 +86,7 @@ public final class QuestionController implements Initializable {
                 stage.setScene(new Scene(root));
             } catch (IOException ex) {
                 // TODO: Error handling
+                System.err.print(ex.getMessage());
                 System.exit(0);
             }
         }

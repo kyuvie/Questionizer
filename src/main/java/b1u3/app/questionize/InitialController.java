@@ -49,7 +49,7 @@ public class InitialController implements Initializable {
             stage.setScene(new Scene(root));
         } catch (IOException ex) {
             // TODO: implements error handling
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
             System.exit(1);
         }
     }
@@ -89,7 +89,7 @@ public class InitialController implements Initializable {
             this.availableFiles.setItems(this.availableFilePathes);
         } catch (SecurityException e) {
             // TODO: implements Error Handling
-            System.out.println(e.getMessage());
+            System.er
             System.exit(1);
         }
     }
