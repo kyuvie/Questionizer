@@ -35,6 +35,7 @@ mainClassName = 'b1u3.app.questionize.Main';
 jar {
 	manifest {
 		attributes('Main-Class': mainClassName)
+        attributes('Manifest-Version': '1.0.0')
 	}
 }
 

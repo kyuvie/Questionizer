@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,8 +18,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Window;
 
 public class InitialController implements Initializable {
     public ObservableList<String> availableFilePathes;
@@ -33,13 +36,17 @@ public class InitialController implements Initializable {
     @FXML
     protected ListView availableFiles;
 
+
+    @FXML
+    protected TextField choosedDir;
+
     @FXML
     protected void pushOkButton(ActionEvent e) {
         State s = State.getInstance();
         try {
             s.qn = new SimpleQuestionizer(getSelectedAbsolutePath());
         } catch (IOException ex) {
-            this.updateFileList();
+            System.err.println(ex.getMessage());
             return;
         }
 
@@ -59,10 +66,20 @@ public class InitialController implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    protected void pushChooseDir(ActionEvent e) {
+        var chooser = new DirectoryChooser();
+        Window win = ((Node)e.getSource()).getScene().getWindow();
+        File f = chooser.showDialog(win);
+        if (f == null) {
+            return;
+        }
+        this.choosedDir.setText(f.toPath().toAbsolutePath().toString());
+        this.updateFileList(f);
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
         // initialize 
-        this.updateFileList();
-
     }
 
     private Path getSelectedAbsolutePath() {
@@ -73,15 +90,17 @@ public class InitialController implements Initializable {
         return p;
     }
 
-    private void updateFileList() {
-        URL homeDirUrl = this.getClass().getResource("/text");
-        // homeDir does not exist
-        if (homeDirUrl == null) {
-            return;
-        }
-        File homeDir = new File(homeDirUrl.getPath());
+    // setPropertyでデバッグか配布か指定 -> getResourceで取って、相対パス../../..でテキストを置く
+    private void updateFileList(File homeDir) {
         try {
             File[] homeDirFiles = homeDir.listFiles();
+            if (homeDir.isDirectory() == false) {
+                System.err.println("/test is not dir");
+            }
+            if (homeDirFiles == null) {
+                System.err.println("Can't get files in /text/");
+                return;
+            }
             for (File f: homeDirFiles) {
                 this.availableFilePathes.addAll(f.getAbsolutePath());
                 this.filenameToPath.put(f.getAbsolutePath(), f.toPath());
@@ -89,7 +108,7 @@ public class InitialController implements Initializable {
             this.availableFiles.setItems(this.availableFilePathes);
         } catch (SecurityException e) {
             // TODO: implements Error Handling
-            System.er
+            System.err.println(e.getMessage());
             System.exit(1);
         }
     }

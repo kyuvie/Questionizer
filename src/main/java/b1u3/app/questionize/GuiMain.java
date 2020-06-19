@@ -17,6 +17,10 @@ public class GuiMain extends Application {
         try {
             // FXMLのレイアウトをロード
             Parent root = FXMLLoader.load(getClass().getResource("/layout/initial.fxml"));
+            if (root == null) {
+                System.err.println("can't load initial.fxml");
+                System.exit(1);
+            }
 
             // タイトルセット
             primaryStage.setTitle("B1u3 Questionizer");
