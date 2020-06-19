@@ -4,7 +4,7 @@ Create questions and give you 3 choices from a table file.
 
 ## Download
 
-<a id="raw-url" href="https://raw.githubusercontent.com/kyuvie/Questionizer/develop/build/distributions/Questionizer.zip">Download FILE</a>
+<a id="raw-url" href="https://raw.githubusercontent.com/kyuvie/Questionizer/develop/Questionizer.zip">Download Zip</a>
 
 ## How to use
 
