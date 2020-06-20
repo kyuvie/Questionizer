@@ -46,7 +46,11 @@ public class InitialController implements Initializable {
         State s = State.getInstance();
         try {
             try {
-                s.qn = new SimpleQuestionizer(getSelectedAbsolutePath());
+                Path p = getSelectedAbsolutePath();
+                if (p == null) {
+                    return;
+                }
+                s.qn = new SimpleQuestionizer(p);
             } catch (TableFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText(ex.getMessage());
@@ -91,11 +95,15 @@ public class InitialController implements Initializable {
     }
 
     private Path getSelectedAbsolutePath() {
-        Path p = this.filenameToPath.get(this.availableFiles.<String> getFocusModel().getFocusedItem());
-        if (p == null) {
-            // TODO: warning
+        try {
+            Path p = this.filenameToPath.get(this.availableFiles.<String> getFocusModel().getFocusedItem());
+            if (p == null) {
+                // TODO: warning
+            }
+            return p;
+        } catch (NullPointerException e) {
+            return null;
         }
-        return p;
     }
 
     // setPropertyでデバッグか配布か指定 -> getResourceで取って、相対パス../../..でテキストを置く
