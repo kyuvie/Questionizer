@@ -50,9 +50,14 @@ public class AnalyzerTest {
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
         }
-        ArrayList<ArrayList<String>> al = an.analyzeAll("あ-い-う-え\nああ-いい-うう-ええ\n啞-　 居-右-絵", "-");
-        assertEquals(al.size(), 3);
-        assertEquals(al.get(2).get(1), "居");
+        try {
+            ArrayList<ArrayList<String>> al = an.analyzeAll("あ-い-う-え\nああ-いい-うう-ええ\n啞-　 居-右-絵", "-");
+            assertEquals(al.size(), 3);
+            assertEquals(al.get(2).get(1), "居");
+        } catch (TableFormatException e) {
+            logger.info(e.getMessage());
+        }
+
     }
 }
 

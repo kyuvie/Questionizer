@@ -24,7 +24,11 @@ public class QuestionizerTest {
         Path path = Paths.get("sample.txt");
         // logger.info(path.toAbsolutePath().toString());
         try {
-            Questionizer qn = new SimpleQuestionizer(path);
+            Questionizer qn = null;
+            try {
+                qn = new SimpleQuestionizer(path);
+            } catch (TableFormatException e) {
+            }
             Iterator<Question> qit = qn.iterator();
             assertEquals(qn.questions.size(), 3);
             int i = 1;
@@ -42,7 +46,11 @@ public class QuestionizerTest {
     public void testWrongAns() {
         Path path = Paths.get("sample.txt");
         try {
-            Questionizer qn = new SimpleQuestionizer(path);
+            Questionizer qn = null;
+            try {
+                qn = new SimpleQuestionizer(path);
+            } catch (TableFormatException e) {
+            }
             Iterator<Question> qit = qn.iterator();
             if (!qit.hasNext()) {
                 fail("no questions, maybe input text file is wrong");
@@ -69,7 +77,11 @@ public class QuestionizerTest {
     public void testRightAns() {
         Path path = Paths.get("sample.txt");
         try {
-            Questionizer qn = new SimpleQuestionizer(path);
+            Questionizer qn = null;
+            try {
+                qn = new SimpleQuestionizer(path);
+            } catch (TableFormatException e) {
+            }
             Iterator<Question> qit = qn.iterator();
             if (!qit.hasNext()) {
                 fail("no questions, maybe input text file is wrong");
