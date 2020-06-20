@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Window;
+import javafx.scene.control.Alert;
 
 public class InitialController implements Initializable {
     public ObservableList<String> availableFilePathes;
@@ -44,7 +45,14 @@ public class InitialController implements Initializable {
     protected void pushOkButton(ActionEvent e) {
         State s = State.getInstance();
         try {
-            s.qn = new SimpleQuestionizer(getSelectedAbsolutePath());
+            try {
+                s.qn = new SimpleQuestionizer(getSelectedAbsolutePath());
+            } catch (TableFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();
+                return;
+            }
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             return;

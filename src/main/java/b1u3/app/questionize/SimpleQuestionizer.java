@@ -15,7 +15,7 @@ public class SimpleQuestionizer extends Questionizer {
     private Analyzer an;
     public static final String sep = "-";
 
-    public SimpleQuestionizer(Path path) throws IOException {
+    public SimpleQuestionizer(Path path) throws IOException, TableFormatException {
         if (!path.isAbsolute()) {
             this.src_path = path.toAbsolutePath();
         } else {
@@ -24,10 +24,14 @@ public class SimpleQuestionizer extends Questionizer {
         this.an = Analyzer.getInstance("b1u3.app.questionize.SimpleAnalyzer");
         this.questions = new ArrayList<Question>();
         String file_content = Files.lines(this.src_path, UTF_8).collect(Collectors.joining(System.getProperty("line.separator")));
+
         ArrayList<ArrayList<String>> all = this.an.analyzeAll(file_content, sep);
         hm = new HashMap<>();
-        for (ArrayList<String> al: all) {
-            hm.put(al.get(0), al.get(1));
+        if (all.size() > 0 || all.size() >= 2) {
+            for (ArrayList<String> al: all) {
+                // al が al[1]をもっているとは限らない
+                hm.put(al.get(0), al.get(1));
+            }
         }
 
         // Generate question

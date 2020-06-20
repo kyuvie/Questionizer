@@ -49,5 +49,5 @@ public abstract class Analyzer {
     }
 
     public abstract ArrayList<String> analyzeLine(String line, String sep);
-    public abstract ArrayList<ArrayList<String>> analyzeAll(String all, String sep);
+    public abstract ArrayList<ArrayList<String>> analyzeAll(String all, String sep) throws TableFormatException;
 }

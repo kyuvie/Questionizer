@@ -19,13 +19,16 @@ public class SimpleAnalyzer extends Analyzer{
      */
 
     @Override
-    public ArrayList<ArrayList<String>> analyzeAll(String all, String spliter) {
+    public ArrayList<ArrayList<String>> analyzeAll(String all, String spliter) throws TableFormatException {
         ArrayList<ArrayList<String>> ret = new ArrayList<>();
         int i = 0;
         int initial_line_num = 0;
         for (String line: all.split("\n")) {
             if (i == 0) {
                 ArrayList<String> init_line = this.analyzeLine(line.strip(), spliter);
+                if (init_line.size() == 1) {
+                    throw new TableFormatException(Integer.valueOf(i).toString());
+                }
                 initial_line_num = init_line.size();
                 ret.add(init_line);
             } else {
